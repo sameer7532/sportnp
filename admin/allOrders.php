@@ -73,6 +73,8 @@ $result = $conn->query($query);
         <th>Product Name</th>
         <th>Price</th>
         <th>Total Quantity</th>
+        <th>Location</th>
+        <th>Time / Date</th>
         <th>Image</th>
         <th>Action</th>
       </tr>
@@ -114,6 +116,9 @@ $result = $conn->query($query);
           echo "<td>{$order['product_title']}</td>";
           echo "<td>Rs {$order['price']} /- pcs</td>";
           echo "<td>{$order['total_quantity']}</td>"; // Display the total quantity of the product
+          echo "<td>{$order['location']}</td>";
+          //in format like 1st Jan 2022 12:00 AM
+          echo "<td>" . date('jS M Y h:i A', strtotime($order['created_at'])) . "</td>";
           echo "<td><img src='.{$imgPath}' alt='{$order['product_title']}' width='200px'></td>"; // Display the product image
           echo "<td>";
           echo "<form action='../actions/cancel_order.php' method='post'>";

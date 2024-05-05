@@ -4,9 +4,9 @@ include_once './utils/db.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['email'])) {
-    // Redirect user to login page if not logged in
-    header("Location: ./login.php");
-    exit();
+  // Redirect user to login page if not logged in
+  header("Location: ./login.php");
+  exit();
 }
 
 // Retrieve user's email from session
@@ -77,61 +77,66 @@ $result = $conn->query($query);
 
   <h2>My Orders</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th>Total Quantity</th>
-          <th>Image</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        // Check if the result contains rows
-        if ($result->num_rows > 0) {
-          // Initialize an associative array to keep track of product quantities
-          $productQuantity = array();
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Total Quantity</th>
+        <th>location</th>
+        <th>Time / Date</th>
+        <th>Image</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      // Check if the result contains rows
+      if ($result->num_rows > 0) {
+        // Initialize an associative array to keep track of product quantities
+        $productQuantity = array();
 
-          // Loop through each row in the result set
-          while ($row = $result->fetch_assoc()) {
-            // If the product is not already in the $productQuantity array, add it with quantity 1
-            if (!isset($productQuantity[$row['product_id']])) {
-              $productQuantity[$row['product_id']] = array(
-                'product' => $row,
-                'quantity' => 1
-              );
-            } else {
-              // If the product is already in the $productQuantity array, increment its quantity
-              $productQuantity[$row['product_id']]['quantity']++;
-            }
+        // Loop through each row in the result set
+        while ($row = $result->fetch_assoc()) {
+          // If the product is not already in the $productQuantity array, add it with quantity 1
+          if (!isset($productQuantity[$row['product_id']])) {
+            $productQuantity[$row['product_id']] = array(
+              'product' => $row,
+              'quantity' => 1
+            );
+          } else {
+            // If the product is already in the $productQuantity array, increment its quantity
+            $productQuantity[$row['product_id']]['quantity']++;
           }
-
-          // Loop through the $productQuantity array to display each product with its total quantity
-          foreach ($productQuantity as $item) {
-            $o = $item['product'];
-            $imgPath = substr($o['img_path'], 1); // Retrieve the image path for the product
-            echo "<tr>";
-            echo "<td>{$o['title']}</td>";
-            echo "<td>Rs {$o['price']} /- pcs</td>";
-            echo "<td>{$item['quantity']}</td>"; // Display the total quantity of the product
-            echo "<td><img src='{$imgPath}' alt='{$o['title']}' width='200px'></td>"; // Display the product image
-            echo "<td>";
-            echo "<form action='./actions/cancel_order.php' method='post'>";
-            echo "<input type='hidden' name='order_id' value='{$o['id']}' >";
-            echo '<button type="submit"  style="background-color:red; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to delete this product?\');">Cancel Order</button>';
-            echo "</form>";
-            echo "</td>";
-            echo "</tr>";
-          }
-        } else {
-          // If the result set is empty, display a message
-          echo "<tr><td colspan='5'>No orders found</td></tr>";
         }
-        ?>
-      </tbody>
-    </table>
+
+        // Loop through the $productQuantity array to display each product with its total quantity
+        foreach ($productQuantity as $item) {
+          $o = $item['product'];
+          $imgPath = substr($o['img_path'], 1); // Retrieve the image path for the product
+          echo "<tr>";
+          echo "<td>{$o['title']}</td>";
+          echo "<td>Rs {$o['price']} /- pcs</td>";
+          echo "<td>{$item['quantity']}</td>"; // Display the total quantity of the product
+          echo "<td>{$o['location']}</td>";
+          //in format like 1st Jan 2022 12:00 AM
+          echo "<td>" . date('jS M Y h:i A', strtotime($o['created_at'])) . "</td>";
+          echo "<td><img src='{$imgPath}' alt='{$o['title']}' width='200px'></td>"; // Display the product image
+          echo "<td>";
+          echo "<form action='./actions/cancel_order.php' method='post'>";
+          echo "<input type='hidden' name='order_id' value='{$o['id']}' >";
+          echo '<button type="submit"  style="background-color:red; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to delete this product?\');">Cancel Order</button>';
+          echo "</form>";
+          echo "</td>";
+          echo "</tr>";
+        }
+      } else {
+        // If the result set is empty, display a message
+        echo "<tr><td colspan='5'>No orders found</td></tr>";
+      }
+      ?>
+    </tbody>
+  </table>
 
 
 </body>

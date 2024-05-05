@@ -195,6 +195,7 @@ session_start();
 
   <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
         <form action="./actions/place_order.php" method="post">
+          <input type="text" name="location" id="location" placeholder="Enter your location" required>
           <button type="submit"
             style="margin-top:2rem; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px;">Place
             Order</button>
