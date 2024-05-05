@@ -100,7 +100,9 @@ $result = $conn->query($query);
               'product_title' => $row['title'],
               'price' => $row['price'],
               'img_path' => $row['img_path'],
-              'total_quantity' => 1
+              'total_quantity' => 1,
+              'location' => $row['location'],
+              'order_date' => $row['order_date']
             );
           } else {
             // If the order details for the user and product are already in the array, increment the total quantity
