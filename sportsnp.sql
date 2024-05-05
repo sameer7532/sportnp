@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 05, 2024 at 03:17 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost
+-- Generation Time: May 05, 2024 at 03:08 PM
+-- Server version: 8.3.0
+-- PHP Version: 8.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,16 +24,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int NOT NULL,
+  `customer_email` varchar(100) DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
+  `order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_email`, `product_id`, `order_date`) VALUES
+(9, 'satish@gmail.com', 19, '2024-05-05 14:09:22'),
+(10, 'satish@gmail.com', 22, '2024-05-05 14:09:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `title` varchar(100) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `img_path` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 --
@@ -48,10 +69,7 @@ INSERT INTO `products` (`id`, `title`, `price`, `img_path`, `created_at`, `updat
 (20, 'football boot', 2500.00, '../uploads/662cd8113fabc.jpg', '2024-04-27 10:48:49', '2024-04-27 10:48:49'),
 (21, 'football socks', 500.00, '../uploads/662cd826aa49c.jpg', '2024-04-27 10:49:10', '2024-04-27 10:49:10'),
 (22, 'badminton', 2000.00, '../uploads/662cda48c1db0.webp', '2024-04-27 10:58:16', '2024-04-27 10:58:16'),
-(23, 'badminton cock', 100.00, '../uploads/662cda5fb080f.webp', '2024-04-27 10:58:39', '2024-04-27 10:58:39'),
-(24, 'cricket bat', 2900.00, '../uploads/662cda70620e7.webp', '2024-04-27 10:58:56', '2024-04-27 10:58:56'),
-(25, 'skipping rope', 600.00, '../uploads/66363370d6bd6.jpg', '2024-05-04 13:09:05', '2024-05-04 13:09:05'),
-(26, 'Basketball', 3000.00, '../uploads/66363396ef4f6.jpg', '2024-05-04 13:09:42', '2024-05-04 13:09:42');
+(23, 'badminton cock', 100.00, '../uploads/662cda5fb080f.webp', '2024-04-27 10:58:39', '2024-04-27 10:58:39');
 
 -- --------------------------------------------------------
 
@@ -60,10 +78,10 @@ INSERT INTO `products` (`id`, `title`, `price`, `img_path`, `created_at`, `updat
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `fullname` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `phone` bigint(20) NOT NULL,
+  `phone` bigint NOT NULL,
   `password` varchar(200) NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
 );
@@ -73,15 +91,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `phone`, `password`, `is_admin`) VALUES
-(1, 'satish', 'satish@gmail.com', 9811212121, '$2y$10$zz7fbrQe7BaFgsZB4i8JK.qmCsp8Li0GfV5ku1sVZFcevz5UI2yda', NULL),
-(2, 'satish', 'satish@gmail.com', 9812345678, '$2y$10$4PtVlFFMIq2pYRKihe8cTe2t35GGF2sbaB1/ypELKdvcUQSCy61eS', NULL),
+(1, 'satish', 'satish@gmail.com', 9811212121, '$2y$10$OrWkKA9uQuBDL0camB.TH.Xw9YjpJ.5NNWTK8bjgtIpMoBu0TeHku', NULL),
 (3, 'sameer gurung', 'sameer@gmail.com', 9826666666, '$2y$10$l1qRoR9JE2p/aO64J8m.c.7uf4GTBfQvdDcVgwYz9pdKr028ytr/K', 1),
 (4, 'bijay chalaune', 'bijay@gmail.com', 9856222222, '$2y$10$AYjpSvAMSclQUIdD1nVKBuRA7hv0xh5RarKjunllJdBOaCbVldaxm', NULL),
-(5, 'srijan maharjan', 'srijan@gmail.com', 9856565656, '$2y$10$0KyVi6jCkorqrYAXfkJHkOMMFm5Y1WloquSogoHROg.D16Ty8oIrG', NULL);
+(5, 'srijan maharjan', 'srijan@gmail.com', 9856565656, '$2y$10$0KyVi6jCkorqrYAXfkJHkOMMFm5Y1WloquSogoHROg.D16Ty8oIrG', NULL),
+(6, 'rayyan', 'rayyan@gmail.com', 9812345678, '$2y$10$OrWkKA9uQuBDL0camB.TH.Xw9YjpJ.5NNWTK8bjgtIpMoBu0TeHku', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `products`
@@ -100,16 +125,32 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
