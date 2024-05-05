@@ -53,7 +53,7 @@ $conn->close();
       <li><a href="index.php">Home</a></li>
       <li><a href="index.php#about">About us</a></li>
       <li><a href="index.php#our-products">Products</a></li>
-      <li><a href="/myOrders.php">My Orders</a></li>
+      <li><a href="./myOrders.php">My Orders</a></li>
       <?php if (isset($_SESSION['email'])): ?>
         <li><a href="./cart.php">Cart</a></li>
         <li><a href="./actions/logout_action.php">Logout</a></li>

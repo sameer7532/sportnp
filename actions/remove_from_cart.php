@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($product['id'] == $product_id) {
                     // Remove the product from the session cart array
                     unset($_SESSION['cart'][$key]);
+                    // Reindex the array
+                    $_SESSION['cart'] = array_values($_SESSION['cart']);
                     break; // Exit the loop after removing the product
                 }
             }
