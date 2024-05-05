@@ -1,0 +1,227 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+nav {
+    width: 100%;
+    height: 73px;
+    line-height: 75px;
+    padding: 0px 100px;
+    position: sticky;
+    top: 0;
+    background-color: #eb8d29;
+    z-index: 9999;
+
+}
+
+nav .logo p {
+    font-size: 30px;
+    font-weight: bold;
+    float: left;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+
+}
+
+nav ul {
+    float: right;
+}
+
+nav li {
+    display: inline-block;
+    line-height: none;
+}
+
+nav li a {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0px 30px;
+    color: white;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    color: #928585;
+}
+
+.banner {
+    width: 100%;
+    background: url(../img/banner3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 625px;
+}
+
+.container {
+    width: 100%;
+    display: block;
+}
+
+.banner-text {
+    color: white;
+    padding: 40px 20px;
+    display: block;
+    font-size: 18px;
+    margin-top: px;
+    margin-bottom: 50px;
+    margin-left: 60px;
+}
+
+.banner-text h1 {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 70px;
+    color: white;
+}
+
+.banner-text p {
+    padding: 20px 0;
+    color: white;
+    font-weight: bold;
+}
+
+.banner-order-btn {
+    margin: 10x auto;
+    padding: 5px 10px;
+    border: white 1px solid;
+    font-size: 20px;
+    color: white;
+    width: 200px;
+    text-align: center;
+}
+
+.banner-order-btn a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Two columns with equal width */
+    grid-gap: 20px;
+    background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
+    /* Optional: Adds gap between grid items */
+}
+
+#about img {
+    width: 80%;
+    position: relative;
+    top: 30px;
+    padding: 20px;
+}
+
+.about-text {
+    display: block;
+    width: 100%;
+    padding-top: 50px;
+}
+
+.about-text h1{
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight:bold;
+    font-style: normal;
+    font-size: 70px;
+    padding-top: 50px;
+    
+}
+.about-text h3{
+    font-weight: bold;
+}
+
+
+#our-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* This will create as many columns as possible that are at least 200px wide,
+       but will stretch to fill any available space */
+    grid-gap: 20px;
+    padding: 1rem;
+}
+
+
+.menu-items{
+background-color:#fff;
+display:block;
+width:100%;
+padding: 10px;
+margin-bottom: 20px;
+box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.1)
+}
+.menu-items img{
+width:100%;
+height: auto;
+padding: 15px;
+aspect-ratio: 1/1;
+overflow: hidden;
+}
+.menu-items h3{
+font-size:25px;
+font-weight: bold;
+text-align: center;
+}
+.menu-items  i{
+color:#1ac578;
+}
+.menu-items p{
+text-align: center;
+}
+.menu-items ul{
+margin:5px 30px;
+list-style: none;
+padding: 0;
+}
+.menu-items ul li{
+display: inline-block;
+padding: 5px 10px;
+color: #1ac578;
+font-weight: bold;
+font-size: 20px;
+text-align: center;
+}
+.order-btn{
+background-color: #1ac578;
+font-size:18px;
+padding: 7px 20px;
+font-weight: normal;
+}
+.menu-items ul li a{
+text-decoration: none;
+color: #fff;
+text-align: center;
+}
+.order-btn:hover{
+text-decoration: none;
+background-color:#20e68d;
+}
+
+.footer-buttom{
+    width: 100%;
+    height: 73px;
+    line-height: 75px;
+    background-color: #050505;
+
+}
+.footer-buttom p{
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
