@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         );
 
         // Redirect the user back to the previous page or any desired page
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header('Location: ../index.php#our-products');
         exit;
     }
 }

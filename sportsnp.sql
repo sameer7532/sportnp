@@ -34,7 +34,7 @@ CREATE TABLE `products` (
   `img_path` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);
 
 --
 -- Dumping data for table `products`
@@ -66,7 +66,7 @@ CREATE TABLE `users` (
   `phone` bigint(20) NOT NULL,
   `password` varchar(200) NOT NULL,
   `is_admin` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);
 
 --
 -- Dumping data for table `users`

@@ -9,6 +9,14 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true && $_SERVER['R
         // Sanitize the product ID to prevent SQL injection
         $product_id = $_POST['product_id'];
 
+        //select the image path from the database
+        $get_image_query = "SELECT img_path FROM products WHERE id = $product_id";
+        $image_result = $conn->query($get_image_query);
+        $image_path = $image_result->fetch_assoc()['img_path'];
+
+        // Delete the image from the server
+        unlink($image_path);
+
         // Query to delete the product from the database
         $query = "DELETE FROM products WHERE id = $product_id";
 
