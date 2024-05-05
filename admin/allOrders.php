@@ -118,7 +118,7 @@ $result = $conn->query($query);
           echo "<td>{$order['total_quantity']}</td>"; // Display the total quantity of the product
           echo "<td>{$order['location']}</td>";
           //in format like 1st Jan 2022 12:00 AM
-          echo "<td>" . date('jS M Y h:i A', strtotime($order['created_at'])) . "</td>";
+          echo "<td>" . date('jS M Y h:i A', strtotime($order['order_date'])) . "</td>";
           echo "<td><img src='.{$imgPath}' alt='{$order['product_title']}' width='200px'></td>"; // Display the product image
           echo "<td>";
           echo "<form action='../actions/cancel_order.php' method='post'>";
