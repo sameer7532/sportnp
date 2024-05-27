@@ -10,7 +10,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 // Retrieve all orders from the database
-$query = "SELECT orders.*, products.title, products.price, products.img_path FROM orders INNER JOIN products ON orders.product_id = products.id";
+$query = "SELECT orders.*, products.title, products.price, products.img_path FROM orders INNER JOIN products ON orders.product_id = products.id ORDER BY order_date DESC";
 $result = $conn->query($query);
 
 ?>
@@ -59,7 +59,7 @@ $result = $conn->query($query);
       <li><a href="./addProduct.php">Product</a></li>
       <li><a href="./allOrders.php">Orders</a></li>
       <?php if (isset($_SESSION['email'])): ?>
-        <li><a href="./actions/logout_action.php">Logout</a></li>
+        <li><a href="../actions/logout_action.php">Logout</a></li>
       <?php endif; ?>
     </ul>
   </nav>
@@ -74,6 +74,7 @@ $result = $conn->query($query);
         <th>Price</th>
         <th>Total Quantity</th>
         <th>Location</th>
+        <th>Phone Number</th>
         <th>Time / Date</th>
         <th>Image</th>
         <th>Action</th>
@@ -102,6 +103,7 @@ $result = $conn->query($query);
               'img_path' => $row['img_path'],
               'total_quantity' => 1,
               'location' => $row['location'],
+              'phone_number' => $row['phone_number'],
               'order_date' => $row['order_date']
             );
           } else {
@@ -119,6 +121,8 @@ $result = $conn->query($query);
           echo "<td>Rs {$order['price']} /- pcs</td>";
           echo "<td>{$order['total_quantity']}</td>"; // Display the total quantity of the product
           echo "<td>{$order['location']}</td>";
+          echo "<td>{$order['phone_number']}</td>";
+
           //in format like 1st Jan 2022 12:00 AM
           echo "<td>" . date('jS M Y h:i A', strtotime($order['order_date'])) . "</td>";
           echo "<td><img src='.{$imgPath}' alt='{$order['product_title']}' width='200px'></td>"; // Display the product image

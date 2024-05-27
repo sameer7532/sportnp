@@ -13,7 +13,7 @@ if (!isset($_SESSION['email'])) {
 $user_email = $_SESSION['email'];
 
 // Retrieve orders for the current user from the database
-$query = "SELECT orders.*, products.title, products.price, products.img_path FROM orders INNER JOIN products ON orders.product_id = products.id WHERE customer_email = '$user_email'";
+$query = "SELECT orders.*, products.title, products.price, products.img_path FROM orders INNER JOIN products ON orders.product_id = products.id WHERE customer_email = '$user_email' ORDER BY order_date DESC";
 $result = $conn->query($query);
 
 ?>
@@ -84,6 +84,7 @@ $result = $conn->query($query);
         <th>Price</th>
         <th>Total Quantity</th>
         <th>location</th>
+        <th>phone number</th>
         <th>Time / Date</th>
         <th>Image</th>
         <th>Action</th>
@@ -119,6 +120,7 @@ $result = $conn->query($query);
           echo "<td>Rs {$o['price']} /- pcs</td>";
           echo "<td>{$item['quantity']}</td>"; // Display the total quantity of the product
           echo "<td>{$o['location']}</td>";
+          echo "<td>{$o['phone_number']}</td>";
           //in format like 1st Jan 2022 12:00 AM
           echo "<td>" . date('jS M Y h:i A', strtotime($o['order_date'])) . "</td>";
           echo "<td><img src='{$imgPath}' alt='{$o['title']}' width='200px'></td>"; // Display the product image

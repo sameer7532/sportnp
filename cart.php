@@ -118,6 +118,7 @@ session_start();
       <li><a href="index.php">Home</a></li>
       <li><a href="index.php#about">About us</a></li>
       <li><a href="index.php#our-products">Products</a></li>
+      <li><a href="./myOrders.php">My Orders</a></li>
       <?php if (isset($_SESSION['email'])): ?>
         <li><a href="./cart.php">Cart</a></li>
         <li><a href="./actions/logout_action.php">Logout</a></li>
@@ -194,8 +195,9 @@ session_start();
   <p>Thank you for shopping with us!</p>
 
   <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
-        <form action="./actions/place_order.php" method="post">
+        <form action="./actions/place_order.php" method="post" onsubmit="return validatePhoneNumber()">
           <input type="text" name="location" id="location" placeholder="Enter your location" required>
+          <input type="number" name="phone_number" id="phone_number" placeholder="Enter your phone_number" required>
           <button type="submit"
             style="margin-top:2rem; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px;">Place
             Order</button>
@@ -262,6 +264,16 @@ session_start();
 </table>
 
   </div>
+  <script>
+        function validatePhoneNumber() {
+            const phoneNumber = document.getElementById('phone_number').value;
+            if (phoneNumber.length < 10 || phoneNumber < 1) {
+                alert("Phone number must be at least 10 digits long and non-negative.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+    </script>
 </body>
 
 </html>

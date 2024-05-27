@@ -125,7 +125,7 @@ $conn->close();
       <li><a href="./addProduct.php">Product</a></li>
       <li><a href="./allOrders.php">Orders</a></li>
       <?php if (isset($_SESSION['email'])): ?>
-        <li><a href="./actions/logout_action.php">Logout</a></li>
+        <li><a href="../actions/logout_action.php">Logout</a></li>
       <?php endif; ?>
     </ul>
   </nav>
@@ -150,8 +150,9 @@ $conn->close();
         </div>
         <div class="form-group">
           <label for="image">Image:</label>
-          <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-          <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 200px; margin-top: 10px;">
+          <input type="file" id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/wpeg" onchange="previewImage(event)">
+          <img id="image-preview" src="#" alt="Image Preview" 
+           style="display: none; max-width: 200px; margin-top: 10px;">
         </div>
         <button type="submit" id="submit-btn">Add</button>
         <button type="button" id="edit-btn" style="display: none; background-color:blue;">Edit</button>
