@@ -87,6 +87,7 @@ $result = $conn->query($query);
         <th>phone number</th>
         <th>Time / Date</th>
         <th>Image</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -124,11 +125,14 @@ $result = $conn->query($query);
           //in format like 1st Jan 2022 12:00 AM
           echo "<td>" . date('jS M Y h:i A', strtotime($o['order_date'])) . "</td>";
           echo "<td><img src='{$imgPath}' alt='{$o['title']}' width='200px'></td>"; // Display the product image
+          echo "<td>{$o['status']}</td>";
           echo "<td>";
-          echo "<form action='./actions/cancel_order.php' method='post'>";
-          echo "<input type='hidden' name='order_id' value='{$o['id']}' >";
-          echo '<button type="submit"  style="background-color:red; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to delete this product?\');">Cancel Order</button>';
-          echo "</form>";
+          if ($o['status'] == 'processing') {
+            echo "<form action='./actions/cancel_order.php' method='post'>";
+            echo "<input type='hidden' name='order_id' value='{$o['id']}' >";
+            echo '<button type="submit"  style="background-color:red; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to delete this product?\');">Cancel Order</button>';
+            echo "</form>";
+          }
           echo "</td>";
           echo "</tr>";
         }

@@ -35,6 +35,8 @@ $conn->close();
   <title>Sports Wears</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/validate.js" defer></script>
+
   <style>
     table {
       width: 100%;
@@ -142,11 +144,11 @@ $conn->close();
         ?>
         <div class="form-group">
           <label for="title">Title:</label>
-          <input type="text" id="title" name="title" required>
+          <input type="text" id="title" name="title">
         </div>
         <div class="form-group">
           <label for="price">Price:</label>
-          <input type="number" id="price" name="price" required min="0">
+          <input type="text" id="price" name="price" min="0">
         </div>
         <div class="form-group">
           <label for="image">Image:</label>

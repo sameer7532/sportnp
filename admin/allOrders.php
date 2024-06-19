@@ -78,6 +78,7 @@ $result = $conn->query($query);
         <th>Time / Date</th>
         <th>Image</th>
         <th>Action</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
@@ -104,7 +105,8 @@ $result = $conn->query($query);
               'total_quantity' => 1,
               'location' => $row['location'],
               'phone_number' => $row['phone_number'],
-              'order_date' => $row['order_date']
+              'order_date' => $row['order_date'],
+              'status' => $row['status'] // Add the status to the array
             );
           } else {
             // If the order details for the user and product are already in the array, increment the total quantity
@@ -130,6 +132,19 @@ $result = $conn->query($query);
           echo "<form action='../actions/cancel_order.php' method='post'>";
           echo "<input type='hidden' name='order_id' value='{$order['order_id']}' >";
           echo '<button type="submit"  style="background-color:red; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to delete this product?\');">Cancel Order</button>';
+          echo "</form>";
+          echo "</td>";
+          echo "<td>";
+          //status form
+          echo '<form action="../actions/admin_change_status.php" method="post" style="display:inline;"> ';
+          echo '<input type="hidden" name="order_id" value="' . $order['order_id'] . '">';
+          echo '<select name="status" id="status" style="padding:0.5rem; border-radius:5px;">';
+          echo '<option value="processing" ' . ($order['status'] == 'processing' ? 'selected' : '') . '>Processing</option>';
+          echo '<option value="shipped" ' . ($order['status'] == 'shipped' ? 'selected' : '') . '>Shipped</option>';
+          echo '<option value="delivered" ' . ($order['status'] == 'delivered' ? 'selected' : '') . '>Delivered</option>';
+          echo '</select>';
+          echo '<button type="submit" style="background-color:green; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to change the status?\');">Change Status</button>';
+
           echo "</form>";
           echo "</td>";
           echo "</tr>";
