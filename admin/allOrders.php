@@ -2,14 +2,13 @@
 session_start();
 include_once '../utils/db.php';
 
-// Check if the user is logged in
+
 if (!isset($_SESSION['email'])) {
-    // Redirect user to login page if not logged in
+    
     header("Location: ./login.php");
     exit();
 }
 
-// Retrieve all orders from the database
 $query = "SELECT orders.*, products.title, products.price, products.img_path FROM orders INNER JOIN products ON orders.product_id = products.id ORDER BY order_date DESC";
 $result = $conn->query($query);
 
@@ -19,7 +18,7 @@ $result = $conn->query($query);
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -83,20 +82,18 @@ $result = $conn->query($query);
     </thead>
     <tbody>
       <?php
-      // Check if the result contains rows
+      
       if ($result->num_rows > 0) {
-        // Initialize an associative array to keep track of product quantities
+        
         $orderDetails = array();
 
-        // Loop through each row in the result set
         while ($row = $result->fetch_assoc()) {
-          // Form a unique key combining user email and product ID
+         
           $key = $row['customer_email'] . '_' . $row['product_id'];
 
-          // If the order details for the user and product are not already in the array, add them
           if (!isset($orderDetails[$key])) {
             $orderDetails[$key] = array(
-              'order_id' => $row['id'], // Add the order ID to the array
+              'order_id' => $row['id'], 
               'user_email' => $row['customer_email'],
               'product_id' => $row['product_id'],
               'product_title' => $row['title'],
@@ -106,36 +103,32 @@ $result = $conn->query($query);
               'location' => $row['location'],
               'phone_number' => $row['phone_number'],
               'order_date' => $row['order_date'],
-              'status' => $row['status'] // Add the status to the array
+              'status' => $row['status']
             );
           } else {
-            // If the order details for the user and product are already in the array, increment the total quantity
+            
             $orderDetails[$key]['total_quantity']++;
           }
         }
 
-        // Loop through the order details array to display each order
         foreach ($orderDetails as $order) {
-          $imgPath = substr($order['img_path'], 1); // Retrieve the image path for the product
-          echo "<tr>";
+          $imgPath = substr($order['img_path'], 1);
           echo "<td>{$order['user_email']}</td>";
           echo "<td>{$order['product_title']}</td>";
           echo "<td>Rs {$order['price']} /- pcs</td>";
-          echo "<td>{$order['total_quantity']}</td>"; // Display the total quantity of the product
+          echo "<td>{$order['total_quantity']}</td>"; 
           echo "<td>{$order['location']}</td>";
           echo "<td>{$order['phone_number']}</td>";
 
-          //in format like 1st Jan 2022 12:00 AM
           echo "<td>" . date('jS M Y h:i A', strtotime($order['order_date'])) . "</td>";
-          echo "<td><img src='.{$imgPath}' alt='{$order['product_title']}' width='200px'></td>"; // Display the product image
-          echo "<td>";
+          echo "<td><img src='.{$imgPath}' alt='{$order['product_title']}' width='200px'></td>"; 
           echo "<form action='../actions/cancel_order.php' method='post'>";
           echo "<input type='hidden' name='order_id' value='{$order['order_id']}' >";
           echo '<button type="submit"  style="background-color:red; color:white; border:none; padding:0.5rem; border-radius:5px;" onclick="return confirm(\'Are you sure you want to delete this product?\');">Cancel Order</button>';
           echo "</form>";
           echo "</td>";
           echo "<td>";
-          //status form
+          
           echo '<form action="../actions/admin_change_status.php" method="post" style="display:inline;"> ';
           echo '<input type="hidden" name="order_id" value="' . $order['order_id'] . '">';
           echo '<select name="status" id="status" style="padding:0.5rem; border-radius:5px;">';
@@ -150,7 +143,6 @@ $result = $conn->query($query);
           echo "</tr>";
         }
       } else {
-        // If the result set is empty, display a message
         echo "<tr><td colspan='6'>No orders found</td></tr>";
       }
       ?>

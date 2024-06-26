@@ -8,7 +8,7 @@ session_start();
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -147,25 +147,23 @@ session_start();
     </thead>
     <tbody>
     <?php
-    // Check if the cart exists in the session and is not empty
+    
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        $totalPrice = 0; // Initialize total price variable
-        $productQuantity = array(); // Initialize an associative array to keep track of product quantities
-
-        // Loop through each product in the cart
+        $totalPrice = 0;
+        $productQuantity = array(); 
+       
         foreach ($_SESSION['cart'] as $p) {
             $imgPath = substr($p['img_path'], 1);
 
-            // If the product is not already in the $productQuantity array, add it with quantity 1
             if (!isset($productQuantity[$p['title']])) {
                 $productQuantity[$p['title']] = 1;
             } else {
-                // If the product is already in the $productQuantity array, increment its quantity
+                
                 $productQuantity[$p['title']]++;
             }
         }
 
-        // Output each product with its quantity and calculated price
+       
         foreach ($productQuantity as $productName => $quantity) {
             $price = $quantity * $_SESSION['cart'][array_search($productName, array_column($_SESSION['cart'], 'title'))]['price'];
             echo "<tr>";
@@ -173,17 +171,17 @@ session_start();
             echo "<td>{$quantity}</td>";
             echo "<td>Rs " . $price . "</td>";
             echo "</tr>";
-            $totalPrice += $price; // Add the product price to the total price
+            $totalPrice += $price; 
         }
 
-        // Output the total price row
+       
         echo "<tr>";
         echo "<td>Total</td>";
-        echo "<td></td>"; // Leave the quantity column empty for the total row
+        echo "<td></td>"; 
         echo "<td>Rs {$totalPrice}</td>";
         echo "</tr>";
     } else {
-        // If the invoice is empty, display a message
+        
         echo "<tr><td colspan='3'>Add products to cart</td></tr>";
     }
     ?>
@@ -219,34 +217,34 @@ session_start();
   </thead>
   <tbody>
     <?php
-    // Check if the cart exists in the session and is not empty
+  
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-      // Initialize an associative array to keep track of product quantities
+      
       $productQuantity = array();
 
-      // Loop through each product in the cart
+     
       foreach ($_SESSION['cart'] as $p) {
-        // If the product is not already in the $productQuantity array, add it with quantity 1
+        
         if (!isset($productQuantity[$p['id']])) {
           $productQuantity[$p['id']] = array(
             'product' => $p,
             'quantity' => 1
           );
         } else {
-          // If the product is already in the $productQuantity array, increment its quantity
+   
           $productQuantity[$p['id']]['quantity']++;
         }
       }
 
-      // Loop through the $productQuantity array to display each product with its quantity and price
+   
       foreach ($productQuantity as $item) {
         $p = $item['product'];
-        $imgPath = substr($p['img_path'], 1); // Retrieve the image path for the product
+        $imgPath = substr($p['img_path'], 1);
         echo "<tr>";
         echo "<td>{$p['title']}</td>";
         echo "<td>Rs {$p['price']} /- pcs</td>";
-        echo "<td>{$item['quantity']}</td>"; // Display the quantity of the product
-        echo "<td><img src='{$imgPath}' alt='{$p['title']}' width='200px'></td>"; // Display the product image
+        echo "<td>{$item['quantity']}</td>"; 
+        echo "<td><img src='{$imgPath}' alt='{$p['title']}' width='200px'></td>"; 
         echo "<td>";
         echo "<form action='./actions/remove_from_cart.php' method='post'>";
         echo "<input type='hidden' name='p_id' value='{$p['id']}' >";
@@ -256,7 +254,7 @@ session_start();
         echo "</tr>";
       }
     } else {
-      // If the cart is empty, display a message
+    
       echo "<tr><td colspan='5'>Cart is empty</td></tr>";
     }
     ?>
@@ -269,9 +267,9 @@ session_start();
             const phoneNumber = document.getElementById('phone_number').value;
             if (phoneNumber.length < 10 || phoneNumber < 1) {
                 alert("Phone number must be at least 10 digits long and non-negative.");
-                return false; // Prevent form submission
+                return false; 
             }
-            return true; // Allow form submission
+            return true; 
         }
     </script>
 </body>

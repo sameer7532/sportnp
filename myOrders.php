@@ -2,17 +2,16 @@
 session_start();
 include_once './utils/db.php';
 
-// Check if the user is logged in
+
 if (!isset($_SESSION['email'])) {
-  // Redirect user to login page if not logged in
+
   header("Location: ./login.php");
   exit();
 }
 
-// Retrieve user's email from session
 $user_email = $_SESSION['email'];
 
-// Retrieve orders for the current user from the database
+
 $query = "SELECT orders.*, products.title, products.price, products.img_path FROM orders INNER JOIN products ON orders.product_id = products.id WHERE customer_email = '$user_email' ORDER BY order_date DESC";
 $result = $conn->query($query);
 
@@ -22,7 +21,7 @@ $result = $conn->query($query);
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -93,38 +92,37 @@ $result = $conn->query($query);
     </thead>
     <tbody>
       <?php
-      // Check if the result contains rows
+      
       if ($result->num_rows > 0) {
-        // Initialize an associative array to keep track of product quantities
+       
         $productQuantity = array();
 
-        // Loop through each row in the result set
+       
         while ($row = $result->fetch_assoc()) {
-          // If the product is not already in the $productQuantity array, add it with quantity 1
+        
           if (!isset($productQuantity[$row['product_id']])) {
             $productQuantity[$row['product_id']] = array(
               'product' => $row,
               'quantity' => 1
             );
           } else {
-            // If the product is already in the $productQuantity array, increment its quantity
+         
             $productQuantity[$row['product_id']]['quantity']++;
           }
         }
 
-        // Loop through the $productQuantity array to display each product with its total quantity
+       
         foreach ($productQuantity as $item) {
           $o = $item['product'];
-          $imgPath = substr($o['img_path'], 1); // Retrieve the image path for the product
-          echo "<tr>";
+          $imgPath = substr($o['img_path'], 1);
           echo "<td>{$o['title']}</td>";
           echo "<td>Rs {$o['price']} /- pcs</td>";
-          echo "<td>{$item['quantity']}</td>"; // Display the total quantity of the product
+          echo "<td>{$item['quantity']}</td>"; 
           echo "<td>{$o['location']}</td>";
           echo "<td>{$o['phone_number']}</td>";
-          //in format like 1st Jan 2022 12:00 AM
+          
           echo "<td>" . date('jS M Y h:i A', strtotime($o['order_date'])) . "</td>";
-          echo "<td><img src='{$imgPath}' alt='{$o['title']}' width='200px'></td>"; // Display the product image
+          echo "<td><img src='{$imgPath}' alt='{$o['title']}' width='200px'></td>"; 
           echo "<td>{$o['status']}</td>";
           echo "<td>";
           if ($o['status'] == 'processing') {
@@ -137,7 +135,7 @@ $result = $conn->query($query);
           echo "</tr>";
         }
       } else {
-        // If the result set is empty, display a message
+       
         echo "<tr><td colspan='5'>No orders found</td></tr>";
       }
       ?>

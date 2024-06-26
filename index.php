@@ -3,25 +3,25 @@ session_start();
 
 include_once './utils/db.php';
 
-// Query to select all records from the products table
+
 $query = "SELECT * FROM products";
 
-// Execute the query
+
 $results = $conn->query($query);
 
-// Check if the query executed successfully
+
 if ($results) {
-  // Fetch all rows as an associative array
+  
   $products = $results->fetch_all(MYSQLI_ASSOC);
 
-  // Free the result set
+
   $results->free();
 } else {
-  // If there was an error with the query, display the error message
+
   echo "Error: " . $conn->error;
 }
 
-// Close the database connection
+
 $conn->close();
 ?>
 
@@ -30,7 +30,7 @@ $conn->close();
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+ 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +63,7 @@ $conn->close();
       <?php endif; ?>
     </ul>
   </nav>
-  <!--banner section-->
+
   <div class="banner">
     <div class="container">
       <div class="row">
@@ -82,8 +82,7 @@ $conn->close();
       </div>
     </div>
   </div>
-  <!-- End banner section-->
-  <!-- About section-->
+  
   <div id="about">
 
 
@@ -104,8 +103,6 @@ $conn->close();
 
   </div>
 
-  <!--Ending about us section-->
-  <!--Menu Section-->
 
   <h2>Our Products</h2>
       <div id="our-products">
@@ -137,30 +134,10 @@ $conn->close();
 
 
   </div>
-  <!--Most selling items-->
-
-
-  <!-- End Most selling items-->
-  <!--Register form-->
-
-
-  <!--End Register form-->
-  <!--Fotter-->
-
+  
   <div class="footer-buttom">
     <p></p>
   </div>
-
-
-
-
-  <!--Fotter-->
-
-
-
-
-
-
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-// new mysqli connection to the database
+
 
 $host = 'localhost';
 $user = 'root';

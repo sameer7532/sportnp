@@ -3,25 +3,24 @@ session_start();
 
 include_once '../utils/db.php';
 
-// Query to select all records from the products table
+
 $query = "SELECT * FROM products ORDER BY created_at DESC";
 
-// Execute the query
+
 $results = $conn->query($query);
 
-// Check if the query executed successfully
 if ($results) {
-  // Fetch all rows as an associative array
+  
   $products = $results->fetch_all(MYSQLI_ASSOC);
 
-  // Free the result set
+  
   $results->free();
 } else {
-  // If there was an error with the query, display the error message
+
   echo "Error: " . $conn->error;
 }
 
-// Close the database connection
+
 $conn->close();
 ?>
 
@@ -29,7 +28,7 @@ $conn->close();
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sports Wears</title>
@@ -88,7 +87,7 @@ $conn->close();
       border: 1px solid #ccc;
       border-radius: 3px;
       box-sizing: border-box;
-      /* Ensure padding and border are included in the width */
+      
     }
 
     .add-product-form-container button {
@@ -173,11 +172,11 @@ $conn->close();
       </thead>
       <tbody>
         <?php
-        // Check if the products exist and are not empty
+        
         if (isset($products) && !empty($products)) {
-          // Loop through each product
+         
           foreach ($products as $p) {
-            // Output the product details in a table row
+            
             echo "<tr>";
             echo "<td><img src='{$p['img_path']}'/></td>";
             echo "<td>{$p['title']}</td>";
@@ -192,7 +191,7 @@ $conn->close();
             echo "</tr>";
           }
         } else {
-          // If no products found, display a message
+         
           echo "<tr><td colspan='4'>No products added</td></tr>";
         }
         ?>
@@ -201,7 +200,7 @@ $conn->close();
   </div>
 
   <script>
-// JavaScript code for handling product editing
+
 const editButtons = document.querySelectorAll('.edit-product-btn');
 
 editButtons.forEach(button => {
@@ -211,12 +210,11 @@ editButtons.forEach(button => {
     const productPrice = button.getAttribute('data-price');
     const productImage = button.getAttribute('data-image');
 
-    // Set form fields with product details
+  
     document.getElementById('product-id').value = productId;
     document.getElementById('title').value = productTitle;
     document.getElementById('price').value = productPrice;
 
-    // Display image preview if product has image
     const imagePreview = document.getElementById('image-preview');
     if (productImage) {
       imagePreview.src = productImage;
@@ -229,14 +227,13 @@ editButtons.forEach(button => {
     document.getElementById('submit-btn').style.display = 'none';
     document.getElementById('edit-btn').style.display = 'block';
     document.getElementById('edit-btn').addEventListener('click', () => {
-      // Submit the form for editing
+      
       document.getElementById('product-form').setAttribute('action', `../actions/admin_edit_product.php?id=${productId}`);
       document.getElementById('product-form').submit();
     });
   });
 });
 
-// Function to preview image when selected
 function previewImage(event) {
   const imagePreview = document.getElementById('image-preview');
   const file = event.target.files[0];

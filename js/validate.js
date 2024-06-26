@@ -58,7 +58,7 @@ const rules = {
 };
 
 const forms = [
-  'registerForm', // Assuming these are the IDs of your form elements
+  'registerForm', 
   'loginForm',
   'product-form',
 ];
@@ -88,7 +88,7 @@ function validateInput(input) {
   const { name, value, type } = input;
   const rule = rules[name];
 
-  if (!rule) return true; // No validation rule for this input
+  if (!rule) return true; 
 
   if (rule.required && !value) {
     showError(input, rule.errorMessage);
@@ -130,7 +130,7 @@ function validateInput(input) {
 }
 
 function showError(input, message) {
-  hideError(input); // Make sure to remove any existing error message first
+  hideError(input); 
   const error = document.createElement('span');
   error.className = 'error';
   error.innerHTML = message;
